@@ -1,7 +1,11 @@
 import ollamaAPI
+import cbmcodecs2
 from telnetserver import TelnetServer
 
-server = TelnetServer(port=2222)
+#x = bytearray("'```\r\nHello, I am WOPR v3.0. How may I assist you?\r\n```\n\r'", encoding="petscii_c64en_lc")
+#print(x)
+
+server = TelnetServer(port=2222, encoding="petscii_c64en_lc")
 
 clients = []
 

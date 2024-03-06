@@ -12,6 +12,7 @@ import socket
 import select
 import time
 import sys
+import cbmcodecs2
 
 
 class TelnetServer(object):
@@ -273,7 +274,9 @@ class TelnetServer(object):
             # matter what we send, we're really just checking that data can
             # still be written to the socket. If it can't, an error will be
             # raised and we'll know that the client has disconnected.
-            self._attempt_send(id, "\x00")
+            # self._attempt_send(id, "\x00")
+            # I CHANGED THIS -- THAT CHARACTER CRASHED IN PETSCII
+            self._attempt_send(id, "")
 
             # update the last check time
             cl.lastcheck = time.time()
