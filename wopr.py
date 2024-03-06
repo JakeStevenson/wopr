@@ -1,11 +1,12 @@
+import os
 import ollamaAPI
-import cbmcodecs2
 from telnetserver import TelnetServer
 
-#x = bytearray("'```\r\nHello, I am WOPR v3.0. How may I assist you?\r\n```\n\r'", encoding="petscii_c64en_lc")
-#print(x)
+telnetPort = os.getenv("port",23)
+ollamaIP = os.getenv("ollamaserver", "127.0.0.1")
 
-server = TelnetServer(port=2222, encoding="petscii_c64en_lc")
+server = TelnetServer(port=telnetPort, encoding="petscii_c64en_lc")
+ollama = ollamaAPI.OllamaConnection(ollamaIP)
 
 clients = []
 
@@ -50,7 +51,7 @@ while True:
             messages[sender_client] = messages[sender_client] + message 
         if(message=="\r"):
             fullMessage = messages[sender_client].strip()
-            response = ollamaAPI.AskOllama(fullMessage)
+            response = ollama.AskOllama(fullMessage)
             server.send_character(sender_client, "WOPR: ")
             server.send_message(sender_client, response)
             messages[sender_client] = ""
